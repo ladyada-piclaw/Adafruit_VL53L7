@@ -247,8 +247,6 @@ uint8_t vl53l7cx_init(
 
 	p_dev->default_xtalk = (uint8_t*)VL53L7CX_DEFAULT_XTALK;
 	p_dev->default_configuration = (uint8_t*)VL53L7CX_DEFAULT_CONFIGURATION;
-	p_dev->is_auto_stop_enabled = (uint8_t)0x0;
-
 	/* SW reboot sequence */
 	status |= WrByte(&(p_dev->platform), 0x7fff, 0x00);
 	status |= WrByte(&(p_dev->platform), 0x0009, 0x04);
@@ -623,8 +621,7 @@ uint8_t vl53l7cx_stop_ranging(
 
 	status |= RdMulti(&(p_dev->platform),
                           0x2FFC, (uint8_t*)&auto_stop_flag, 4);
-	if((auto_stop_flag != (uint32_t)0x4FF)
-		&& (p_dev->is_auto_stop_enabled == (uint8_t)1))
+	if(auto_stop_flag != (uint32_t)0x4FF)
 	{
 		status |= WrByte(&(p_dev->platform), 0x7fff, 0x00);
 

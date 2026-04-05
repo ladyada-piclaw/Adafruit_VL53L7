@@ -65,7 +65,7 @@ uint8_t vl53l7cx_motion_indicator_init(
   p_motion_config->spare_3 = 0;
 
   status |= vl53l7cx_motion_indicator_set_resolution(
-              p_motion_config, resolution);
+              p_dev, p_motion_config, resolution);
 
   return status;
 }
